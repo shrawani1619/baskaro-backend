@@ -21,3 +21,27 @@ yarn-error.log*
 .vscode/
 .idea/
 
+# Testing & Coverage
+coverage/
+.nyc_output/
+jest-results.json
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Misc
+Thumbs.db
+*.swp
+*.swo
+*~
+.tmp/
+temp/
+

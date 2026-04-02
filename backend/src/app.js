@@ -8,6 +8,21 @@ import ordersRouter from './routes/orders.js'
 import addressesRouter from './routes/addresses.js'
 import adminRouter from './routes/admin.js'
 
+// New route imports
+import dashboardRouter from './routes/dashboard.js'
+import userManagementRouter from './routes/userManagement.js'
+import mobileManagementRouter from './routes/mobileManagement.js'
+import deviceConditionRouter from './routes/deviceCondition.js'
+import orderManagementRouter from './routes/orderManagement.js'
+import pickupManagementRouter from './routes/pickupManagement.js'
+import paymentManagementRouter from './routes/paymentManagement.js'
+import inventoryManagementRouter from './routes/inventoryManagement.js'
+import couponManagementRouter from './routes/couponManagement.js'
+import bannerManagementRouter from './routes/bannerManagement.js'
+import reportsAnalyticsRouter from './routes/reportsAnalytics.js'
+
+import { errorHandler } from './utils/errorHandler.js'
+
 export const app = express()
 
 app.use(
@@ -22,10 +37,27 @@ app.get('/health', (_req, res) => res.json({ ok: true }))
 // Also expose under /api to match documented base URL.
 app.get('/api/health', (_req, res) => res.json({ ok: true }))
 
+// Existing routes
 app.use('/api/catalog', catalogRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/pricing', pricingRouter)
 app.use('/api/orders', ordersRouter)
 app.use('/api/addresses', addressesRouter)
 app.use('/api/admin', adminRouter)
+
+// New routes
+app.use('/api/dashboard', dashboardRouter)
+app.use('/api/users', userManagementRouter)
+app.use('/api/mobile', mobileManagementRouter)
+app.use('/api/device-condition', deviceConditionRouter)
+app.use('/api/order-management', orderManagementRouter)
+app.use('/api/pickup', pickupManagementRouter)
+app.use('/api/payments', paymentManagementRouter)
+app.use('/api/inventory', inventoryManagementRouter)
+app.use('/api/coupons', couponManagementRouter)
+app.use('/api/banners', bannerManagementRouter)
+app.use('/api/reports', reportsAnalyticsRouter)
+
+// Error handling middleware (must be last)
+app.use(errorHandler)
 

@@ -15,9 +15,22 @@ export function requireAuth(req, res, next) {
 }
 
 export function requireAdmin(req, res, next) {
-  if (!req.user?.role || req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Admin only' })
+  if (!req.user?.role || !['admin', 'SUPER_ADMIN', 'MANAGER', 'SUPPORT'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Admin access required' })
   }
   return next()
+}
+
+export function requireRole(...roles) {
+  return (req, res, next) => {
+    if (!req.user?.role || !roles.includes(req.user.role)) {
+      return res.status(403).json({ error: `Requires one of these roles: ${roles.join(', ')}` })
+    }
+    return next()
+  }
+}
+
+export function requireSuperAdmin(req, res, next) {
+  return requireRole('SUPER_ADMIN')(req, res, next)
 }
 
